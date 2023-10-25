@@ -1,13 +1,9 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import React, {useEffect, useState} from 'react'
+import {SimilarAccount} from "@/app/dto/similar-account";
+import {SimilarAccountOverview} from '@/components/similar-account-overview/SimilarAccountOverview'
 
-interface SimilarAccount {
-    instagramUrl: string;
-  username: string;
-  profilePicUrl: string;
-  userId: string;
-}
+
 const SimilarAccounts = (props: any) => {
   const [similarAccounts, setSimilarAccounts] = useState<SimilarAccount[]>([])
   const [isLoading, setLoading] = useState(true)
@@ -48,13 +44,6 @@ const SimilarAccounts = (props: any) => {
     return `http://localhost:3003/proxy?videoUrl="${encodedUrl(videoUrl)}"`
   }
 
-  const router = useRouter()
-  const foo = (username: string) => {
-    console.log('heeey', username)
-    // change url to /analysis/:username
-    router.push(`/analysis/${username}?isMocked=true`)
-  }
-
   return (
     <div className='flex min-h-screen flex-col items-center justify-between p-24'>
       {isLoading
@@ -66,13 +55,7 @@ const SimilarAccounts = (props: any) => {
         : (
           <div className='grid grid-cols-5 gap-4'>
             {similarAccounts.length > 0 && similarAccounts.map((similarAccount: SimilarAccount) => (
-              <div key={similarAccount.instagramUrl} className=''>
-                <img
-                  onClick={() => foo(similarAccount.username)}
-                  src={similarAccount.profilePicUrl} width={250} height={500}
-                />
-                <p> {similarAccount.username} </p>
-              </div>
+             <SimilarAccountOverview account={similarAccount}></SimilarAccountOverview>
             ))}
           </div>
           )}
