@@ -1,22 +1,21 @@
 'use client'
-import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
 import { Reel } from '@/app/dto/reel'
 
-const Analysis = (props: any) => {
+const Inspiration = (props: any) => {
   const [reels, setReels] = useState<Reel[]>([])
   const [isLoading, setLoading] = useState(true)
 
-  const searchParams = useSearchParams()
-
   useEffect(() => {
-    getBestReels(props.params.creatorName)
+    getInspiration(props.searchParams.search)
       .then((reels) => {
         updateReels(reels)
       })
   }, [])
 
   const updateReels = (reels: Reel[]) => {
+    console.log('updateando reels: ', reels)
     reels.forEach((reel: Reel) => {
       reel.videoUrl = getVideoFromProxy(reel.videoUrl)
     })
@@ -24,14 +23,22 @@ const Analysis = (props: any) => {
     setLoading(false)
     setReels([...reels])
   }
-  const getBestReels = async (userId: string) => {
-    console.log('pidiendo reels de: ', userId)
-    const reels = fetch(`http://localhost:3003/reels/${userId}?isMocked=${searchParams.get('isMocked')}`, { next: { revalidate: 10 } })
-    console.log('los reels son: ', reels)
-    return reels.then((response) => {
-      console.log('response: ', response)
-      return response.json()
+  const getInspiration = async (userNames: string[]) => {
+    console.log('pidiendo reels de: ', userNames)
+    // const reels = fetch(`http://localhost:3003/inspiration/${userId}?isMocked=${searchParams.get('isMocked')}`, { next: { revalidate: 10 } })
+
+    const reels = fetch('http://localhost:3003/search-inspiration', {
+      method: 'POST',
+      body: JSON.stringify(userNames)
     })
+      .then((response) => response.json())
+      .catch((error) => {
+        console.error(error)
+      })
+
+    console.log('los reels son: ', reels)
+
+    return reels
   }
 
   const encodedUrl = (videoUrl: string) => {
@@ -70,4 +77,4 @@ const Analysis = (props: any) => {
   )
 }
 
-export default Analysis
+export default Inspiration

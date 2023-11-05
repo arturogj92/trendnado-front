@@ -7,10 +7,9 @@ interface InternalLink {
 }
 
 const internalLinks = [
-  { label: 'Home', route: '/' },
-  { label: 'About', route: '/about' },
-  { label: 'Analysis', route: '/analysis/:creatorName?=isMocked' },
-  { label: 'SimilarAccounts', route: '/similar-accounts/:creatorName' }
+  { label: 'HOME', route: '/' },
+  { label: 'ABOUT', route: '/about' },
+  { label: 'ANALYSIS', route: '/analysis/:creatorName?=isMocked' }
 ]
 
 const renderLinks = () => (
@@ -18,7 +17,7 @@ const renderLinks = () => (
     {internalLinks.map((link: InternalLink) => (
       <li key={link.route}>
         <Link href={link.route}>
-          {link.label}
+          <span className={styles.linktext}>{link.label}</span>
         </Link>
       </li>
     ))}
@@ -28,7 +27,8 @@ const renderLinks = () => (
 export function Navigation () {
   return (
     <header className={styles.header}>
-      <nav>
+      <nav className={styles.nav}>
+        <h1 className={styles.title}> TRENDNADO </h1>
         <ul className={styles.navigation}>
           {renderLinks()}
         </ul>

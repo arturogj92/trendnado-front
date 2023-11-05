@@ -1,16 +1,34 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .navigation {
     display: flex;
     list-style: none;
-    gap: 32px;
+    gap: 30px;
 }
 
 .header {
-    border: 1px solid #f0f0f0;
     border-radius: 4px;
-    padding: 4px;
+    padding: 20px;
 }
 
 .navigation a:hover {
     color: #90ffd8;
     text-decoration: underline;
+}
+
+.linktext {
+    font-family: Karantina;
+    font-size: 2rem;
+    letter-spacing: 0.12rem;
+}
+
+.title {
+    font-family: Karantina;
+    font-size: 5.5rem;
+    margin-left: 1%;
+    letter-spacing: 0.12rem;
 }
