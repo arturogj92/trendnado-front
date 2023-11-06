@@ -2,6 +2,7 @@
 import { useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { Reel } from '@/app/dto/reel'
+import {Loading} from "@/components/loading/Loading";
 
 const Inspiration = (props: any) => {
   const [reels, setReels] = useState<Reel[]>([])
@@ -15,17 +16,13 @@ const Inspiration = (props: any) => {
   }, [])
 
   const updateReels = (reels: Reel[]) => {
-    console.log('updateando reels: ', reels)
     reels.forEach((reel: Reel) => {
       reel.videoUrl = getVideoFromProxy(reel.videoUrl)
     })
-    console.log('reels[0]', reels[0])
     setLoading(false)
     setReels([...reels])
   }
   const getInspiration = async (userNames: string[]) => {
-    console.log('pidiendo reels de: ', userNames)
-    // const reels = fetch(`http://localhost:3003/inspiration/${userId}?isMocked=${searchParams.get('isMocked')}`, { next: { revalidate: 10 } })
 
     const reels = fetch('http://localhost:3003/search-inspiration', {
       method: 'POST',
@@ -35,8 +32,6 @@ const Inspiration = (props: any) => {
       .catch((error) => {
         console.error(error)
       })
-
-    console.log('los reels son: ', reels)
 
     return reels
   }
@@ -55,9 +50,7 @@ const Inspiration = (props: any) => {
     <div className='flex min-h-screen flex-col items-center justify-between p-24'>
       {isLoading
         ? (
-          <div><span>Loading...</span>
-            <img alt='alien' src='https://i.imgur.com/SVR7Jgj.gif' />
-          </div>
+              <Loading/>
           )
         : (
           <div className='grid grid-cols-5 gap-4'>

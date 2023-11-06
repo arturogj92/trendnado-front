@@ -20,16 +20,12 @@ const Analysis = (props: any) => {
     reels.forEach((reel: Reel) => {
       reel.videoUrl = getVideoFromProxy(reel.videoUrl)
     })
-    console.log('reels[0]', reels[0])
     setLoading(false)
     setReels([...reels])
   }
   const getBestReels = async (userId: string) => {
-    console.log('pidiendo reels de: ', userId)
     const reels = fetch(`http://localhost:3003/reels/${userId}?isMocked=${searchParams.get('isMocked')}`, { next: { revalidate: 10 } })
-    console.log('los reels son: ', reels)
     return reels.then((response) => {
-      console.log('response: ', response)
       return response.json()
     })
   }

@@ -11,7 +11,6 @@ export default function HomePage (props: any) {
   }
 
   if (isSubmit(props)) {
-    console.log('datos form:: ', props)
     return redirect(`/similar-accounts/${props.searchParams.creatorName}`)
   }
 
@@ -30,8 +29,8 @@ export default function HomePage (props: any) {
         </div>
       </form>
       <h2 className='description'>
-      Encuentra, analiza e inspírate con los mejores reels y videos de Instagram.
-      Todo personalizado para ti.
+        Encuentra, analiza e inspírate con los mejores reels y videos de Instagram.
+        Todo personalizado para ti.
       </h2>
     </>
   )
