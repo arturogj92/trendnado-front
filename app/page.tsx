@@ -11,7 +11,6 @@ export default function HomePage (props: any) {
   }
 
   if (isSubmit(props)) {
-    console.log('datos form:: ', props)
     return redirect(`/similar-accounts/${props.searchParams.creatorName}`)
   }
 
