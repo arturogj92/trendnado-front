@@ -18,10 +18,87 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: #010626;
+/*  background: linear-gradient(*/
+/*to bottom,*/
+/*transparent,*/
+/*rgb(var(--background-end-rgb))*/
+/*)*/
+/*rgb(var(--background-start-rgb));*/
 }
+
+.description {
+  font-family: Karantina;
+  text-align: center;
+  font-size: 4rem;
+  color: #ffffff;
+}
+
+.hightlight-purple {
+  color: #E5258D;
+}
+
+.instagram-input-container {
+  background-color: #e4e4e4;
+  border-radius: 50px;
+  display: flex;
+  width: 530px;
+  align-items: center;
+  padding: 5px 23px;
+  color: black;
+  position: absolute;
+}
+
+.instagram-input-container .emoji {
+  font-size: 24px;
+}
+
+.search {
+  background-color: transparent;
+  border: none;
+  margin-left: 70px;
+  outline: none;
+  flex-grow: 1;
+  text-decoration: none;
+  font-family: Karantina;
+  letter-spacing: 1px;
+  font-size: 2.5rem;
+}
+
+.search::placeholder {
+  color: #000000;
+}
+
+.search-btn {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin-left: 8px;
+  cursor: pointer;
+  outline: none;
+}
+
+.search-btn .emoji {
+  font-size: 24px;
+}
+
+.at {
+  font-family: Karantina;
+  font-size: 3.2rem;
+  /* margin-bottom: 10px; */
+  position: absolute;
+  width: 80px;
+  background-color: #E5258D;
+  left: 0%;
+  color: #000;
+  text-align: center;
+  height: 80px;
+  border-radius: 100%;
+}
+
+.search-block {
+  padding: 150px;
+    display: flex;
+    justify-content: center;
+}
+
