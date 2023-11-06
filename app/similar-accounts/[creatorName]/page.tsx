@@ -9,7 +9,6 @@ const SimilarAccounts = (props: any) => {
   const [selectedSimilarAccounts, setSelectedSimilarAccounts] = useState<SimilarAccount[]>([])
 
   const handleSelectedSimilarAccount = (similarAccount: SimilarAccount) => {
-    // add only if not already in the list and if exists, delete it
     if (selectedSimilarAccounts.find((selectedSimilarAccount) => selectedSimilarAccount.userId === similarAccount.userId)) {
       setSelectedSimilarAccounts(selectedSimilarAccounts.filter((selectedSimilarAccount) => selectedSimilarAccount.userId !== similarAccount.userId))
     } else {
@@ -83,11 +82,11 @@ const SimilarAccounts = (props: any) => {
               <Link href={{
                 pathname: '/inspiration',
                 query: {
-                  search: selectedSimilarAccounts.map((selectedSimilarAccount) => selectedSimilarAccount.username)
+                  search: selectedSimilarAccounts.map((selectedSimilarAccount) => selectedSimilarAccount.userId)
                 }
               }}
               >
-                <button> INSPIRAME PUTO </button>
+                <button> INSPÍRAME </button>
               </Link>
 
             </div>

@@ -2,7 +2,6 @@
 
 import React from 'react'
 import './globals.css'
-import { SimilarAccount } from '@/app/dto/similar-account'
 
 // @ts-ignore
 export function SimilarAccountOverview ({ account, isSelected }) {
