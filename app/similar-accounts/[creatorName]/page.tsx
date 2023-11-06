@@ -87,7 +87,7 @@ const SimilarAccounts = (props: any) => {
               <Link href={{
                 pathname: '/inspiration',
                 query: {
-                  search: selectedSimilarAccounts.map((selectedSimilarAccount) => selectedSimilarAccount.username)
+                  search: selectedSimilarAccounts.map((selectedSimilarAccount) => selectedSimilarAccount.userId)
                 }
               }}
               >

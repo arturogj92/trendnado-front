@@ -30,8 +30,8 @@ export default function HomePage (props: any) {
         </div>
       </form>
       <h2 className='description'>
-      Encuentra, analiza e inspírate con los mejores reels y videos de Instagram.
-      Todo personalizado para ti.
+        Encuentra, analiza e inspírate con los mejores reels y videos de Instagram.
+        Todo personalizado para ti.
       </h2>
     </>
   )
