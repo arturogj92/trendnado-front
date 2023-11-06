@@ -2,6 +2,7 @@
 import { useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { Reel } from '@/app/dto/reel'
+import {Loading} from "@/components/loading/Loading";
 
 const Inspiration = (props: any) => {
   const [reels, setReels] = useState<Reel[]>([])
@@ -55,9 +56,7 @@ const Inspiration = (props: any) => {
     <div className='flex min-h-screen flex-col items-center justify-between p-24'>
       {isLoading
         ? (
-          <div><span>Loading...</span>
-            <img alt='alien' src='https://i.imgur.com/SVR7Jgj.gif' />
-          </div>
+              <Loading/>
           )
         : (
           <div className='grid grid-cols-5 gap-4'>
