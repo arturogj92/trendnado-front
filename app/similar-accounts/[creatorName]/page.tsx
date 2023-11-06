@@ -1,9 +1,9 @@
 'use client'
-import React, {useEffect, useState} from 'react'
-import {SimilarAccount} from '@/app/dto/similar-account'
-import {SimilarAccountOverview} from '@/components/similar-account-overview/SimilarAccountOverview'
+import React, { useEffect, useState } from 'react'
+import { SimilarAccount } from '@/app/dto/similar-account'
+import { SimilarAccountOverview } from '@/components/similar-account-overview/SimilarAccountOverview'
 import Link from 'next/link'
-import {Loading} from "@/components/loading/Loading";
+import { Loading } from '@/components/loading/Loading'
 
 const SimilarAccounts = (props: any) => {
   const [similarAccounts, setSimilarAccounts] = useState<SimilarAccount[]>([])
@@ -60,22 +60,18 @@ const SimilarAccounts = (props: any) => {
   const isSelectedSimilarAccount = (similarAccount: SimilarAccount) =>
     selectedSimilarAccounts.find((selectedSimilarAccount) => selectedSimilarAccount.userId === similarAccount.userId)
 
-  const isSelectedSimilarAccountClassNameCalculator = (similarAccount: SimilarAccount) => {
-    return isSelectedSimilarAccount(similarAccount) ? 'border-4 border-red-500' : ''
-  }
-
   return (
     <div className='flex min-h-screen flex-col items-center justify-between p-24'>
       {isLoading
         ? (
-          <Loading/>
+          <Loading />
           )
         : (
           <>
             <div className='grid grid-cols-5 gap-4'>
               {similarAccounts.length > 0 && similarAccounts.slice(0, 30).map((similarAccount: SimilarAccount) => (
                 <div key={similarAccount.userId} onClick={() => handleSelectedSimilarAccount(similarAccount)}>
-                  <SimilarAccountOverview account={similarAccount} key={similarAccount.username} isSelected={isSelectedSimilarAccount(similarAccount)} />
+                  <SimilarAccountOverview account={similarAccount} isSelected={isSelectedSimilarAccount(similarAccount)} key={similarAccount.username} />
                 </div>
               ))}
               <Link href={{
@@ -85,16 +81,15 @@ const SimilarAccounts = (props: any) => {
                 }
               }}
               >
-                <button> INSPÍRAME </button>
-                <button className={"text-white bg-blue-700 hover:bg-blue-800 p-4"}> INSPIRAME PUTO </button>
+                <button className='text-white bg-blue-700 hover:bg-blue-800 p-4'> INSPIRAME </button>
               </Link>
 
             </div>
           </>
           )}
 
-        </div>
-    )
+    </div>
+  )
 }
 
 export default SimilarAccounts
