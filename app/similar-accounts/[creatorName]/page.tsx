@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { SimilarAccount } from '@/app/dto/similar-account'
 import { SimilarAccountOverview } from '@/components/similar-account-overview/SimilarAccountOverview'
 import Link from 'next/link'
+import {Loading} from "@/components/loading/Loading";
 
 const SimilarAccounts = (props: any) => {
   const [similarAccounts, setSimilarAccounts] = useState<SimilarAccount[]>([])
@@ -68,17 +69,18 @@ const SimilarAccounts = (props: any) => {
     <div className='flex min-h-screen flex-col items-center justify-between p-24'>
       {isLoading
         ? (
-          <div><span>Loading...</span>
-            <img alt='alien' src='https://i.imgur.com/SVR7Jgj.gif' />
-          </div>
+          <Loading/>
           )
         : (
           <>
             <div className='grid grid-cols-5 gap-4'>
               {similarAccounts.length > 0 && similarAccounts.slice(0, 30).map((similarAccount: SimilarAccount) => (
-                <div key={similarAccount.userId} onClick={() => handleSelectedSimilarAccount(similarAccount)}>
-                  <SimilarAccountOverview account={similarAccount} key={similarAccount.username} isSelected={isSelectedSimilarAccount(similarAccount)} />
-                </div>
+                  <SimilarAccountOverview
+                      key={similarAccount.userId}
+                      onClick={() => handleSelectedSimilarAccount(similarAccount)}
+                      account={similarAccount}
+                      isSelected={isSelectedSimilarAccount(similarAccount)}
+                  />
               ))}
               <Link href={{
                 pathname: '/inspiration',
