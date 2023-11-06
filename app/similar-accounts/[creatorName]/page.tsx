@@ -70,12 +70,12 @@ const SimilarAccounts = (props: any) => {
                         <div className='grid grid-cols-5 gap-4'>
                             <SimilarAccountFinder/>
                             {similarAccounts.length > 0 && similarAccounts.slice(0, 30).map((similarAccount: SimilarAccount) => (
-                                <div key={similarAccount.userId}onClick={() => handleSelectedSimilarAccount(similarAccount)}>
+                                <div key={similarAccount.userId}>
                                     <SimilarAccountOverview
                                         account={similarAccount}
-
-                                        isSelected={isSelectedSimilarAccount(similarAccount)}
                                         key={similarAccount.username}
+                                        isSelected={isSelectedSimilarAccount(similarAccount)}
+                                        onClick={() => handleSelectedSimilarAccount(similarAccount)}
                                     />
                                 </div>
                             ))}
