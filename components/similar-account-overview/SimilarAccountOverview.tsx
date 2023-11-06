@@ -4,7 +4,7 @@ import React from 'react'
 import '../../public/css/globals.css'
 
 // @ts-ignore
-export function SimilarAccountOverview ({ account, isSelected }) {
+export function SimilarAccountOverview ({ account, isSelected, onClick }) {
   const handleClassName = () => {
     return isSelected ? 'border-blue selected' : ''
   }
@@ -14,6 +14,7 @@ export function SimilarAccountOverview ({ account, isSelected }) {
       <div key={account.instagramUrl}>
         <div>
           <img
+            onClick={onClick}
             className={'avatar rounded-full ' + handleClassName()}
             src={account.profilePicUrl} width={120} height={120}
             alt={account.username}
