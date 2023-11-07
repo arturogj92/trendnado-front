@@ -28,7 +28,7 @@ export function Navigation () {
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
-        <h1 className={styles.title}> TRENDNADO </h1>
+        <Link href={'/'}><h1 className={styles.title}> TRENDNADO </h1></Link>
         <ul className={styles.navigation}>
           {renderLinks()}
         </ul>
