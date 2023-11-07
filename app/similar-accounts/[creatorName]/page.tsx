@@ -4,7 +4,7 @@ import { SimilarAccount } from '@/app/dto/similar-account'
 import { SimilarAccountOverview } from '@/components/similar-account-overview/SimilarAccountOverview'
 import Link from 'next/link'
 import { Loading } from '@/components/loading/Loading'
-import { InstagramAccountFinder } from '@/components/similar-account-finder/InstagramAccountFinder'
+import { InstagramAccountFinder } from '@/components/instagram-account-finder/InstagramAccountFinder'
 import { encodeUrl } from '@/shared/url-encoder'
 
 const SimilarAccounts = (props: any) => {
@@ -51,6 +51,16 @@ const SimilarAccounts = (props: any) => {
   const isSelectedSimilarAccount = (similarAccount: SimilarAccount) =>
     selectedSimilarAccounts.find((selectedSimilarAccount) => selectedSimilarAccount.userId === similarAccount.userId)
 
+  const addNewInstagramAccountToSimilar = (instagramAccount: any) => {
+    console.log('instagramAccount selected', instagramAccount)
+    if (similarAccounts.find((similarAccount) => similarAccount.userId === instagramAccount.userId)) {
+      alert('Ya has añadido esta cuenta!') // TODO: change to toast
+      return
+    }
+    setSimilarAccounts([instagramAccount, ...similarAccounts])
+    setSelectedSimilarAccounts([instagramAccount, ...selectedSimilarAccounts])
+  }
+
   return (
     <div className='flex min-h-screen flex-col items-center justify-between p-24'>
       {isLoading
@@ -60,7 +70,7 @@ const SimilarAccounts = (props: any) => {
         : (
           <>
             <div className='grid grid-cols-5 gap-4'>
-              <InstagramAccountFinder />
+              <InstagramAccountFinder accountFound={(account) => addNewInstagramAccountToSimilar(account)}/>
               {similarAccounts.length > 0 && similarAccounts.slice(0, 30).map((similarAccount: SimilarAccount) => (
                 <div key={similarAccount.userId}>
                   <SimilarAccountOverview
