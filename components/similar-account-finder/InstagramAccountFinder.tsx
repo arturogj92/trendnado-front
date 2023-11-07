@@ -7,33 +7,29 @@ import { SimilarAccount } from '@/app/dto/similar-account'
 import { encodeUrl } from '@/shared/url-encoder'
 
 export function InstagramAccountFinder () {
-  const [showModalSimilarAccountFinder, setShowModalSimilarAccountFinder] = useState(false)
-  const [similarAccountQuerySearch, setSimilarAccountQuerySearch] = useState('')
-  const [similarAccountsFound, setSimilarAccountsFound] = useState([{}] as any)
+  const [showModalInstagramAccountSearchFinder, setShowModalInstagramAccountSearchFinder] = useState(false)
+  const [instagramAccountQuerySearch, setInstagramAccountQuerySearch] = useState('')
+  const [instagramAccountsFound, setInstagramAccountsFound] = useState([{}] as any)
 
-  const searchInstagramUsers = (similarAccountQuerySearch: string): Promise<any> => {
-    if (similarAccountQuerySearch.length < 3) return Promise.resolve(null)
-    console.log('Searching similar accounts with: ', similarAccountQuerySearch)
-    const instagramUsers = fetch(`http://localhost:3003/similar-accounts/search?search_query=${similarAccountQuerySearch}`, { next: { revalidate: 10 } })
-    console.log('los instagramUsers encontrados son: ', instagramUsers)
+  const searchInstagramUsers = (instagramAccountQuerySearch: string): Promise<any> => {
+    if (instagramAccountQuerySearch.length < 3) return Promise.resolve(null)
+    const instagramUsers = fetch(`http://localhost:3003/similar-accounts/search?search_query=${instagramAccountQuerySearch}`, { next: { revalidate: 10 } })
     return instagramUsers.then((response) => {
-      console.log('response: ', response)
       return response.json()
     })
   }
   const onClickFindInstagramUser = async () => {
-    const similarAccountsResponse = await searchInstagramUsers(similarAccountQuerySearch)
-    const similarAccounts = similarAccountsResponse?.similarAccounts
-    console.log(similarAccountQuerySearch, similarAccounts)
+    const instagramAccountsSearchResponse = await searchInstagramUsers(instagramAccountQuerySearch)
+    const similarAccounts = instagramAccountsSearchResponse?.similarAccounts
     similarAccounts.forEach((similarAccount: SimilarAccount) => {
       similarAccount.profilePicUrl = getImageFromProxy(similarAccount.profilePicUrl)
     })
-    updateSimilarAccountsFound(similarAccounts)
+    updateInstagramAccountsFound(similarAccounts)
   }
 
-  const updateSimilarAccountsFound = (similarAccounts: {}): void => setSimilarAccountsFound(similarAccounts)
+  const updateInstagramAccountsFound = (similarAccounts: {}): void => setInstagramAccountsFound(similarAccounts)
 
-  const showSimilarAccountVisibility = (similarAccount: SimilarAccount) => similarAccount.isPrivate ? '🔒' : ''
+  const showInstagramAccountVisibility = (similarAccount: SimilarAccount) => similarAccount.isPrivate ? '🔒' : ''
 
   const getImageFromProxy = (videoUrl: string): string => {
     return `http://localhost:3003/proxy?videoUrl="${encodeUrl(videoUrl)}"`
@@ -41,21 +37,21 @@ export function InstagramAccountFinder () {
 
   return (
     <>
-      <div onClick={() => setShowModalSimilarAccountFinder(true)} className='similar-account-finder' />
-      {showModalSimilarAccountFinder &&
-        <Modal onClose={() => setShowModalSimilarAccountFinder(false)}>
+      <div onClick={() => setShowModalInstagramAccountSearchFinder(true)} className='similar-account-finder' />
+      {showModalInstagramAccountSearchFinder &&
+        <Modal onClose={() => setShowModalInstagramAccountSearchFinder(false)}>
           <div className='w-100'>
             <input
               className='w-100'
               type='text'
-              onKeyUp={(event) => setSimilarAccountQuerySearch(event.target.value)}
+              onKeyUp={(event) => setInstagramAccountQuerySearch(event.target.value)}
               placeholder='Introduce el usuario de instagram que quieres buscar'
             />
             <button onClick={onClickFindInstagramUser}>Search</button>
           </div>
           <div className='w-100 list-of-similar-accounts-found'>
             <ul className='w-100'>
-              {similarAccountsFound.length > 0 && similarAccountsFound.map((similarAccount: any) => {
+              {instagramAccountsFound.length > 0 && instagramAccountsFound.map((similarAccount: any) => {
                 return (
                   <li
                     key={similarAccount.id}
@@ -69,7 +65,7 @@ export function InstagramAccountFinder () {
                         />
                       </div>
                       <div className='flex flex-col'>
-                        <p> <b> {showSimilarAccountVisibility(similarAccount)} @{similarAccount.username}</b> </p>
+                        <p> <b> {showInstagramAccountVisibility(similarAccount)} @{similarAccount.username}</b> </p>
                         <p><i>{similarAccount?.fullName}</i></p>
                       </div>
                     </div>
