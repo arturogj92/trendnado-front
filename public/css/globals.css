@@ -41,6 +41,16 @@
     background-image: url("../image/glass-pink.png");
 }
 
+
+.similar-account-overview .remover {
+    opacity: 0;
+    color: #ff3226
+}
+
+.similar-account-overview:hover .remover {
+    opacity: 1;
+}
+
 /** Modal styles */
 .modal-wrapper {
     width: 500px;

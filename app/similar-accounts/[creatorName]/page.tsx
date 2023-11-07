@@ -20,6 +20,17 @@ const SimilarAccounts = (props: any) => {
     }
   }
 
+  const handleRemoveSimilarAccount = (account: SimilarAccount) => {
+    // remove similar account from similaraccounts and selectedsimilaraccounts only if exists
+    if (similarAccounts.find((similarAccount) => similarAccount.userId === account.userId)) {
+      setSimilarAccounts(similarAccounts.filter((similarAccount) => similarAccount.userId !== account.userId))
+    }
+    if (selectedSimilarAccounts.find((selectedSimilarAccount) => selectedSimilarAccount.userId === account.userId)) {
+      setSimilarAccounts(similarAccounts.filter((selectedSimilarAccount) => selectedSimilarAccount.userId !== account.userId))
+    }
+
+  }
+
   const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -78,6 +89,7 @@ const SimilarAccounts = (props: any) => {
                     key={similarAccount.username}
                     isSelected={isSelectedSimilarAccount(similarAccount)}
                     onClick={() => handleSelectedSimilarAccount(similarAccount)}
+                    onRemove={() => handleRemoveSimilarAccount(similarAccount)}
                   />
                 </div>
               ))}
