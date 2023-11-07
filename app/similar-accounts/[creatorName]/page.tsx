@@ -20,8 +20,6 @@ const SimilarAccounts = (props: any) => {
     }
   }
 
-  console.log('similarAccounts GLOBAL', selectedSimilarAccounts)
-
   const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -35,17 +33,13 @@ const SimilarAccounts = (props: any) => {
     similarAccounts.forEach((reel: SimilarAccount) => {
       reel.profilePicUrl = getVideoFromProxy(reel.profilePicUrl)
     })
-    console.log('similarAccounts[0]', similarAccounts[0])
     setLoading(false)
     setSimilarAccounts([...similarAccounts])
   }
 
   const getSimilarAccountsFrom = async (userName: string) => {
-    console.log('pidiendo similarAccounts de: ', userName)
     const similarAccounts = fetch(`http://localhost:3003/similar-accounts/${userName}`, { next: { revalidate: 10 } })
-    console.log('los similarAccounts son: ', similarAccounts)
     return similarAccounts.then((response) => {
-      console.log('response: ', response)
       return response.json()
     })
   }
