@@ -1,15 +1,18 @@
 'use client'
-import { useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { Reel } from '@/app/dto/reel'
-import {Loading} from "@/components/loading/Loading";
+import { Loading } from '@/components/loading/Loading'
+import { useSearchParams } from 'next/navigation'
 
 const Inspiration = (props: any) => {
   const [reels, setReels] = useState<Reel[]>([])
   const [isLoading, setLoading] = useState(true)
 
+  const searchParams = useSearchParams()
+
   useEffect(() => {
-    getInspiration(props.searchParams.search)
+    const search: string[] = searchParams.getAll('search')
+    getInspiration(search)
       .then((reels) => {
         updateReels(reels)
       })
@@ -23,7 +26,7 @@ const Inspiration = (props: any) => {
     setReels([...reels])
   }
   const getInspiration = async (userNames: string[]) => {
-
+    console.log()
     const reels = fetch('http://localhost:3003/search-inspiration', {
       method: 'POST',
       body: JSON.stringify(userNames)
@@ -50,7 +53,7 @@ const Inspiration = (props: any) => {
     <div className='flex min-h-screen flex-col items-center justify-between p-24'>
       {isLoading
         ? (
-              <Loading/>
+          <Loading />
           )
         : (
           <div className='grid grid-cols-5 gap-4'>
