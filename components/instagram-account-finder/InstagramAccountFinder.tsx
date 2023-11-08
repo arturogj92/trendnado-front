@@ -41,7 +41,6 @@ export function InstagramAccountFinder({accountFound}) {
     }
 
     const accountSelected = (account) => {
-        console.log(account)
         if (account.isPrivate) {
             alert('Esta cuenta es privada, no se puede añadir') // TODO: change to toast
             return

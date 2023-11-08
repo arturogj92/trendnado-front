@@ -63,7 +63,6 @@ const SimilarAccounts = (props: any) => {
     selectedSimilarAccounts.find((selectedSimilarAccount) => selectedSimilarAccount.userId === similarAccount.userId)
 
   const addNewInstagramAccountToSimilar = (instagramAccount: any) => {
-    console.log('instagramAccount selected', instagramAccount)
     if (similarAccounts.find((similarAccount) => similarAccount.userId === instagramAccount.userId)) {
       alert('Ya has añadido esta cuenta!') // TODO: change to toast
       return
