@@ -1,10 +1,24 @@
 import Image from "next/image";
 
-export function Loading ({}) {
+export enum LoadingMode { LIGHT, DARK , NORMAL }
+
+export function Loading ({ mode = LoadingMode.NORMAL }) {
+
+    // return (
+    //     <>
+    //         <Image src={'/loading.svg'} width={width} height={height} alt='loading'/>
+    //     </>
+    // )
+
+    const calculateModeClass = (mode) => {
+        switch (mode) {
+            case LoadingMode.LIGHT: return 'light'
+            case LoadingMode.DARK: return 'dark'
+            default: return ''
+        }
+    }
 
     return (
-        <>
-            <Image src={'/loading.svg'} width={200} height={200} alt='loading'/>
-        </>
+        <div className={`spinner ${calculateModeClass(mode)}`}></div>
     )
 }

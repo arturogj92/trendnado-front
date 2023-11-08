@@ -6,13 +6,16 @@ import {Modal} from '@/components/modal/Modal'
 import {InstagramAccountOverview} from '@/app/dto/instagram-account-overview'
 import {encodeUrl} from '@/shared/url-encoder'
 import {SearchInput} from "@/components/search/SearchInput";
+import {Loading, LoadingMode} from "@/components/loading/Loading";
 
 export function InstagramAccountFinder({accountFound}) {
     const [showModalInstagramAccountSearchFinder, setShowModalInstagramAccountSearchFinder] = useState(false)
     const [instagramAccountsFound, setInstagramAccountsFound] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
 
     const searchInstagramUsers = (instagramAccountQuerySearch: string): Promise<any> => {
         if (instagramAccountQuerySearch.length < 3) return Promise.resolve(null)
+        setIsLoading(true)
         const instagramUsers = fetch(`http://localhost:3003/similar-accounts/search?search_query=${instagramAccountQuerySearch}`, {next: {revalidate: 10}})
         return instagramUsers.then((response) => {
             return response.json()
@@ -26,6 +29,7 @@ export function InstagramAccountFinder({accountFound}) {
             instagramAccount.profilePicUrl = getImageFromProxy(instagramAccount.profilePicUrl)
         })
         updateInstagramAccountsFound(instagramAccounts)
+        setIsLoading(false)
     }
 
     const updateInstagramAccountsFound = (instagramAccounts: []): void => setInstagramAccountsFound(instagramAccounts)
@@ -57,6 +61,11 @@ export function InstagramAccountFinder({accountFound}) {
                 </div>
                 <div className='h-80 mt-10 overflow-auto w-100 list-of-similar-accounts-found'>
                   <ul className='w-100'>
+                      {
+                          isLoading && <div className={'flex justify-center'}>
+                          <Loading mode={LoadingMode.LIGHT} width={100} height={100}/>
+                        </div>
+                      }
                       {instagramAccountsFound.length > 0 && instagramAccountsFound.map((instagramAccount: any) => {
                           return (
                               <li
