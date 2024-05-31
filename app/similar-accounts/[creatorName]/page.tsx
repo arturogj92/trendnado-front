@@ -12,7 +12,6 @@ const SimilarAccounts = (props: any) => {
   const [selectedSimilarAccounts, setSelectedSimilarAccounts] = useState<SimilarAccount[]>([])
 
   const handleSelectedSimilarAccount = (similarAccount: SimilarAccount) => {
-    // add only if not already in the list and if exists, delete it
     if (selectedSimilarAccounts.find((selectedSimilarAccount) => selectedSimilarAccount.userId === similarAccount.userId)) {
       setSelectedSimilarAccounts(selectedSimilarAccounts.filter((selectedSimilarAccount) => selectedSimilarAccount.userId !== similarAccount.userId))
     } else {
@@ -21,14 +20,12 @@ const SimilarAccounts = (props: any) => {
   }
 
   const handleRemoveSimilarAccount = (account: SimilarAccount) => {
-    // remove similar account from similaraccounts and selectedsimilaraccounts only if exists
     if (similarAccounts.find((similarAccount) => similarAccount.userId === account.userId)) {
       setSimilarAccounts(similarAccounts.filter((similarAccount) => similarAccount.userId !== account.userId))
     }
     if (selectedSimilarAccounts.find((selectedSimilarAccount) => selectedSimilarAccount.userId === account.userId)) {
       setSimilarAccounts(similarAccounts.filter((selectedSimilarAccount) => selectedSimilarAccount.userId !== account.userId))
     }
-
   }
 
   const [isLoading, setLoading] = useState(true)
@@ -80,7 +77,7 @@ const SimilarAccounts = (props: any) => {
         : (
           <>
             <div className='grid grid-cols-5 gap-4'>
-              <InstagramAccountFinder accountFound={(account) => addNewInstagramAccountToSimilar(account)}/>
+              <InstagramAccountFinder accountFound={(account) => addNewInstagramAccountToSimilar(account)} />
               {similarAccounts.length > 0 && similarAccounts.slice(0, 30).map((similarAccount: SimilarAccount) => (
                 <div key={similarAccount.userId}>
                   <SimilarAccountOverview
@@ -99,7 +96,7 @@ const SimilarAccounts = (props: any) => {
                 }
               }}
               >
-                <button className='text-white bg-blue-700 hover:bg-blue-800 p-4'> INSPIRAME </button>
+                <button data-testid='go-to-inspiration' className='text-white bg-blue-700 hover:bg-blue-800 p-4'> INSPIRAME </button>
               </Link>
             </div>
           </>

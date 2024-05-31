@@ -15,7 +15,8 @@ const Inspiration = (props: any) => {
     getInspiration(search)
       .then((reels) => {
         updateReels(reels)
-      })
+      }
+      )
   }, [])
 
   const updateReels = (reels: Reel[]) => {
@@ -56,17 +57,20 @@ const Inspiration = (props: any) => {
           <Loading />
           )
         : (
-          <div className='grid grid-cols-5 gap-4'>
-            {reels.length > 0 && reels.slice(0, 10).map((post: Reel) => (
-              <div key={post.instagramUrl} className=''>
-                <video
-                  crossOrigin='anonymous' src={post.videoUrl} width={250} height={500}
-                  controls
-                />
-                <p> ❤️ {post.likes} </p>
-                <p> ▶️ {post.playCount} </p>
-              </div>
-            ))}
+          <div data-testid='main' className='grid grid-cols-5 gap-4'>
+            {reels.length > 0
+              ? reels.slice(0, 10).map((post: Reel) => (
+                <div key={post.instagramUrl} className=''>
+                  <video
+                    role='video'
+                    crossOrigin='anonymous' src={post.videoUrl} width={250} height={500}
+                    controls
+                  />
+                  <p> ❤️ {post.likes} </p>
+                  <p> ▶️ {post.playCount} </p>
+                </div>
+              ))
+              : <div data-testid='error-message'>No reels found</div>}
           </div>
           )}
     </div>
